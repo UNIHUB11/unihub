@@ -291,7 +291,7 @@ select {
 <body>
   <div class="container-fluid">
   <div class="navigation">
-    <a href="index.php"><img src="Logo.png" style="height: 150px; width: 300px;"></a>
+    <a href="index.php"><img src="images/Logo.png" style="height: 150px; width: 300px;"></a>
     <h1>Universal Shop Hub</h1>
     <ul>
       <li class="list active" ><a href="#home"> Home</a>
