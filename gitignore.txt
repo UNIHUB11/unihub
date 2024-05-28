@@ -6,3 +6,7 @@ node_modules/
 
 # Ignore log files
 *.log
+
+# Do not ignore PHP files
+!*.php
+
