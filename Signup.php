@@ -1,10 +1,11 @@
 <?php
-require('connection.inc.php');
-require('functions.inc.php');
-session_start();
-$msg = '';
+require('connection.inc.php'); // Include database connection file
+require('functions.inc.php'); // Include functions file for utility functions
+session_start(); // Start the session
+$msg = ''; // Initialize the message variable
 
-if (isset($_POST['signUp'])) {
+if (isset($_POST['signUp'])) { // Check if the signup form is submitted
+    // Get form data and sanitize using the get_safe_value function
     $firstName = get_safe_value($conn, $_POST['firstName']);
     $lastName = get_safe_value($conn, $_POST['lastName']);
     $email = get_safe_value($conn, $_POST['email']);
@@ -14,10 +15,10 @@ if (isset($_POST['signUp'])) {
     if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
         $msg = "All fields are required.";
     } else {
-        // Hash the password
+        // Hash the password securely
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // Check if email already exists
+        // Check if email already exists in the database
         $checkEmail = $conn->prepare("SELECT * FROM registration WHERE email = ?");
         if (!$checkEmail) {
             die("Prepare failed: " . $conn->error);
@@ -29,7 +30,7 @@ if (isset($_POST['signUp'])) {
         if ($result->num_rows > 0) {
             $msg = "Email Address Already Exists!";
         } else {
-            // Insert new user
+            // Insert new user into the database
             $insertQuery = $conn->prepare("INSERT INTO registration (firstName, lastName, email, password) VALUES (?, ?, ?, ?)");
             if (!$insertQuery) {
                 die("Prepare failed: " . $conn->error);
@@ -38,18 +39,19 @@ if (isset($_POST['signUp'])) {
 
             if ($insertQuery->execute()) {
                 $msg = "User registered successfully!";
-                // header("Location: main.php"); // Uncomment this line after debugging
+                // Uncomment the following line to redirect after successful registration
+                header("Location: index.php");
                 exit();
             } else {
                 $msg = "Error: " . $insertQuery->error;
             }
         }
 
-        $checkEmail->close();
+        $checkEmail->close(); // Close the prepared statement
     }
 }
 
-$conn->close();
+$conn->close(); // Close the database connection
 ?>
 
 <!DOCTYPE html>
@@ -62,24 +64,24 @@ $conn->close();
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Stunning sign up & login Form Responsive Widget, Audio and Video players, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design"
 	/>
-    <link rel="icon" href="images/Logo.png" type="image/x-icon">
+    <link rel="icon" href="Logo with bg.png" type="image/x-icon">
 	<script>
 		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
 	</script>
 	<!-- Meta tags -->
 		<!-- font-awesome icons -->
-	<link rel="stylesheet" href="css/s2.css" />
+	<link rel="stylesheet" href="s2.css" />
 	<!-- //font-awesome icons -->
 	<!--stylesheets-->
-	<link href="css/s1.css" rel='stylesheet' type='text/css' media="all">
+	<link href="s1.css" rel='stylesheet' type='text/css' media="all">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<!--//style sheet end here-->
 
-<link href="css/s3.css" rel="stylesheet">
+<link href="s3.css" rel="stylesheet">
 </head>
 
 <body>
-<script src="js/s1.js" type="text/javascript"></script>
+<script src="s1.js" type="text/javascript"></script>
 <script>
 (function(){
 	if(typeof _bsa !== 'undefined' && _bsa) {
@@ -115,7 +117,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 </script>
 
 <meta name="robots" content="noindex">
-<body><link rel="stylesheet" href="css/Stylesbg.css">
+<body><link rel="stylesheet" href="Stylesbg.css">
 <!-- New toolbar-->
 <style>
 * {
@@ -232,7 +234,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 			<div class="mid-cls">
 			<!---728x90--->
  <div class="swm-left-w3ls">
- <form action="signup.php" method="post">
+ <form action="Signup.php" method="post">
     <div class="main">
         <div class="icon-head-wthree">
             <h4>Sign Up</h4>
